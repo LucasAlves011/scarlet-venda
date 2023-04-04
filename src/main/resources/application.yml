@@ -1,0 +1,23 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: vendas
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+  profiles:
+    active: lucas
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    defaultZone: http://localhost:8761/eureka
+

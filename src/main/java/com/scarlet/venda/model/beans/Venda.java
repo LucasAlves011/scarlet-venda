@@ -34,5 +34,5 @@ public class Venda {
 //    @JoinTable(name = "venda_itens",joinColumns = @JoinColumn(name = "venda_id")
 //            ,inverseJoinColumns = @JoinColumn(name = "item_id"))
 //    private List<Item> itens;
-
+    //teste
 }

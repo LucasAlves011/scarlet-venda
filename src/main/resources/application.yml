@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: vendas
+    name: venda
   servlet:
     multipart:
       max-request-size: 10MB
@@ -13,11 +13,4 @@ spring:
       matching-strategy: ant-path-matcher
   profiles:
     active: lucas
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    defaultZone: http://localhost:8761/eureka
 

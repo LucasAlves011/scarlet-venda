@@ -1,0 +1,19 @@
+server:
+  port: 0
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/venda
+    password: servidor123
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    defaultZone: http://localhost:8761/eureka

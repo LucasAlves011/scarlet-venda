@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
 @Entity(name = "venda")
 public class Venda {
 
@@ -21,18 +23,17 @@ public class Venda {
     private int id;
 
     @Column(updatable = false)
-    private LocalDateTime data_hora;
+    private LocalDateTime data_hora = LocalDateTime.now();
 
     private double total;
     private double desconto;
     private double entrega;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "tipo")
-    private TipoPagamento tipoPagamento;
+    @Column(name = "tipo_pagamento")
+    private TipoPagamento formaPagamento;
 
-//    @JoinTable(name = "venda_itens",joinColumns = @JoinColumn(name = "venda_id")
-//            ,inverseJoinColumns = @JoinColumn(name = "item_id"))
-//    private List<Item> itens;
-    //teste
+    @OneToMany(cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Item> itens;
 }

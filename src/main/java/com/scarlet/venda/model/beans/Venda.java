@@ -33,7 +33,7 @@ public class Venda {
     @Column(name = "tipo_pagamento")
     private TipoPagamento formaPagamento;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Item> itens;
 }

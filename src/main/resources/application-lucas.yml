@@ -14,3 +14,7 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+#logging:
+#  level:
+#    org.springframework.web.cors: DEBUG
+#    org.springframework.web.servlet.DispatcherServlet: DEBUG

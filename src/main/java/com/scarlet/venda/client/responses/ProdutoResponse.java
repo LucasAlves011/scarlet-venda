@@ -10,7 +10,7 @@ import java.util.List;
 @ToString
 public class ProdutoResponse {
 
-    private double valor;
+    private double total;
     private double entrega;
     private double desconto;
     private List<Item> itens;

@@ -1,7 +1,5 @@
 package com.scarlet.venda.controller;
 
-import com.scarlet.venda.client.EstoqueClient;
-import com.scarlet.venda.client.responses.ProdutoResponse;
 import com.scarlet.venda.model.beans.Venda;
 import com.scarlet.venda.service.VendaService;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +17,24 @@ public class VendaController {
         this.vendaService = vendaService;
     }
 
-    @PostMapping()
-    public ResponseEntity<Venda> postVenda(@RequestBody ProdutoResponse entrada) {
-        System.out.println(entrada);
-        return ResponseEntity.ok().body(vendaService.save(entrada));
+    @PostMapping("/cadastro")
+    public ResponseEntity<Venda> adsa(@RequestParam String venda) {
+        System.out.println(venda);
+        return ResponseEntity.ok().body(vendaService.save(venda));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Venda> getVenda(@PathVariable int id){
+    public ResponseEntity<Venda> getVenda(@PathVariable int id) {
         return ResponseEntity.ok().body(vendaService.getVenda(id));
     }
 
-    public ResponseEntity<List<Venda>> getVendas(){
+    @GetMapping()
+    public ResponseEntity<List<Venda>> getVendas() {
         return ResponseEntity.ok().body(vendaService.getVendas());
     }
 
+    @PostMapping("/verificar")
+    public ResponseEntity<String> teste(@RequestBody String string) {
+        return ResponseEntity.ok().body(string);
+    }
 }

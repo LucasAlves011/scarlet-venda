@@ -1,6 +1,5 @@
 package com.scarlet.venda.model.beans;
 
-import com.scarlet.venda.VendaApplication;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

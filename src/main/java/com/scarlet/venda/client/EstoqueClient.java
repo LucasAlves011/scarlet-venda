@@ -22,4 +22,7 @@ public interface EstoqueClient {
     @PostMapping("/io")
     boolean verificarProdutos(@RequestBody List<Item> itens);
 
+    @GetMapping("/produto/nome/{id}")
+    String getNomeProduto(@PathVariable int id);
+
 }

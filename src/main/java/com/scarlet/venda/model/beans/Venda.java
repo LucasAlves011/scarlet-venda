@@ -22,8 +22,8 @@ public class Venda {
     @Setter(AccessLevel.NONE)
     private int id;
 
-    @Column(updatable = false)
-    private LocalDateTime data_hora = LocalDateTime.now();
+    @Column(updatable = false, name = "data_hora")
+    private LocalDateTime dataHora = LocalDateTime.now();
 
     private double total;
     private double desconto;

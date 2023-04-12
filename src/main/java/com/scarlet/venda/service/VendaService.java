@@ -5,12 +5,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scarlet.venda.client.EstoqueClient;
-import com.scarlet.venda.model.beans.Item;
-import com.scarlet.venda.model.beans.Venda;
+import com.scarlet.venda.model.beans.*;
 import com.scarlet.venda.model.enums.TipoPagamento;
 import com.scarlet.venda.model.repository.VendaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +42,7 @@ public class VendaService {
                 item.setProdutoId(a.get("produtoId").asInt());
                 item.setQuantidade(a.get("quantidade").asInt());
                 item.setTamanho(a.get("tamanho").asText());
+                item.setValor(a.get("valor").asDouble());
                 arrayitens.add(item);
             });
             venda.setItens(arrayitens);
@@ -78,4 +79,54 @@ public class VendaService {
         return vendaRepository.findAll();
     }
 
+    public List<ResumoVenda> getVendaSemana() {
+        List<ResumoVenda> resumoVendaList = new ArrayList<>();
+
+        for (int i = 1; i <= 7; i++) {
+            var vendas = vendaRepository.findByDate(LocalDate.now().minusDays(i));
+            resumoVendaList.add(getResumoVenda(vendas,i));
+        }
+        return resumoVendaList;
+    }
+
+    private ResumoVenda getResumoVenda(List<Venda> vendas,int daysToSubtract) {
+        ResumoVenda resumoVenda = new ResumoVenda();
+
+        resumoVenda.setData(LocalDate.now().minusDays(daysToSubtract));
+
+        resumoVenda.setTotal(vendas.stream().reduce(0.0, (a, b) -> a + b.getTotal(), Double::sum));
+
+        resumoVenda.setQuantidadeVendas(vendas.size());
+
+        resumoVenda.setCartao(vendas.stream()
+                .filter(a -> a.getFormaPagamento().equals(TipoPagamento.CARTAO))
+                .mapToDouble(Venda::getTotal).sum());
+
+        resumoVenda.setDinheiro(vendas.stream()
+                .filter(a -> a.getFormaPagamento().equals(TipoPagamento.DINHEIRO))
+                .mapToDouble(Venda::getTotal).sum());
+
+        resumoVenda.setPix(vendas.stream()
+                .filter(a -> a.getFormaPagamento().equals(TipoPagamento.PIX))
+                .mapToDouble(Venda::getTotal).sum());
+
+        return resumoVenda;
+    }
+
+    public ResumoVenda getVendaDia(LocalDate data) {
+        var vendas = vendaRepository.findByDate(data);
+        return getResumoVenda(vendas,0);
+    }
+
+    public List<VendaMaisItemModificado> getVendasDia(LocalDate data) {
+        var vendas =  vendaRepository.findByDate(data);
+        return  vendas.stream().map( venda -> {
+            List<ItemMaisNome> lista = new ArrayList<>();
+            venda.getItens().forEach(item -> {
+                lista.add(new ItemMaisNome(item,estoqueClient.getNomeProduto(item.getProdutoId())));
+            });
+            return new VendaMaisItemModificado(venda,lista);
+        }).toList();
+
+    }
 }

@@ -19,6 +19,7 @@ public class Item {
     private int produtoId;
     private int quantidade;
 
+    private double valor;
     @Length(max = 20)
     private String tamanho;
 }

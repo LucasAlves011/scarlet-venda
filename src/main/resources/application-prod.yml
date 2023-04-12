@@ -9,6 +9,8 @@ spring:
     password: servidor123
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
 
 eureka:
   instance:

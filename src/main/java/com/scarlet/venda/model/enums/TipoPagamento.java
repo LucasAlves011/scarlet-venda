@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum TipoPagamento {
 
-    PIX("PIX"),CARTAO("CARTAO"),DINHEIRO("DINHEIRO");
+    PIX("PIX"), CARTAO("CARTAO"), DINHEIRO("DINHEIRO");
 
     private final String descricao;
 

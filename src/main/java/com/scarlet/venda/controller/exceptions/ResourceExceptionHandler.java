@@ -14,7 +14,7 @@ public class ResourceExceptionHandler {
 
 
     @ExceptionHandler(RuntimeException.class)
-    ResponseEntity<StandardException> objectNotFoundException(RuntimeException e, ServletRequest request){
+    ResponseEntity<StandardException> objectNotFoundException(RuntimeException e, ServletRequest request) {
         StandardException error = new StandardException(LocalDateTime.now(ZoneId.of("UTC")), HttpStatus.INTERNAL_SERVER_ERROR.value()
                 , e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);

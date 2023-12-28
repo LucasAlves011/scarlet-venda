@@ -1,5 +1,6 @@
 package com.scarlet.venda.controller;
 
+import com.scarlet.venda.model.beans.Produto;
 import com.scarlet.venda.model.beans.ResumoVenda;
 import com.scarlet.venda.model.beans.Venda;
 import com.scarlet.venda.model.beans.VendaMaisItemModificado;
@@ -26,7 +27,7 @@ public class VendaController {
     public ResponseEntity<Venda> adsa(@RequestParam String venda) {
         System.out.println(venda);
         return ResponseEntity.ok().body(vendaService.save(venda));
-    }   
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Venda> getVenda(@PathVariable int id) {
@@ -48,16 +49,20 @@ public class VendaController {
         return ResponseEntity.ok().body(vendaService.getVendaSemana());
     }
 
+    @GetMapping("/venda-por-categorias")
+    public ResponseEntity<List<Produto>> getVendaPorCategorias(@PathParam("data1") String data1, @PathParam("data2") String data2) {
+        return ResponseEntity.ok().body(vendaService.getVendaPorCategorias(data1, data2));
+    }
 
     @GetMapping("/resumo-dia")
     public ResponseEntity<ResumoVenda> getVendaDia(@PathParam("data") String data) {
-        return ResponseEntity.ok().body(vendaService.getVendaDia(LocalDate.parse(data, DateTimeFormatter.ofPattern("dd-MM-yyyy")) ));
+        return ResponseEntity.ok().body(vendaService.getVendaDia(LocalDate.parse(data, DateTimeFormatter.ofPattern("dd-MM-yyyy"))));
     }
 
     @GetMapping("/vendas-dia")
     public ResponseEntity<List<VendaMaisItemModificado>> getVendasDia(@PathParam("data") String data) {
         return ResponseEntity.ok().body(vendaService.getVendasDia(LocalDate.parse(data, DateTimeFormatter
-                .ofPattern("dd-MM-yyyy")) ));
+                .ofPattern("dd-MM-yyyy"))));
     }
 
 

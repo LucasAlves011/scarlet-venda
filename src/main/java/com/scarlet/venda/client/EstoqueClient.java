@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "estoque", url = "http://localhost:8080/estoque")
+@FeignClient(name = "estoque", url = "http://localhost:9091/estoque")
 public interface EstoqueClient {
 
     @GetMapping("/produto/{id}")
@@ -24,5 +24,8 @@ public interface EstoqueClient {
 
     @GetMapping("/produto/nome/{id}")
     String getNomeProduto(@PathVariable int id);
+
+    @PostMapping("/produto/tamanhos")
+    List<String> getTamanhos(@RequestBody List<Integer> ids);
 
 }
